@@ -46,16 +46,17 @@ class Player(ConnectPg):
     nick = ""
     name = ""
     surname = ""
-    money = 1000
+    money = 0
     db_con = None
 
-    def __init__(self, player_id, player_nick, player_name, player_surname):
+    def __init__(self, player_id, player_nick, player_name, player_surname, player_money=1000):
         self.db_con = ConnectPg()
 
         self.id = player_id
         self.nick = player_nick
         self.name = player_name
         self.surname = player_surname
+        self.money = player_money
 
         self.db_con.insert((self.id, self.nick, self.name, self.surname, self.money))
 
@@ -63,10 +64,22 @@ class Player(ConnectPg):
         class_name = self.__class__.__name__
         print class_name, "destroyed"
 
+def betOnRulet():
+    print "Bet on numers"
+    numbers = raw_input()
+    print "How many money you bet on : %s" % (x for x in numbers) # TODO: jakos to ogarnac !
+
+
+def gra():
+    colorDictionary = {"red": (1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36),
+                       "black": (2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35)}
+    #obstawianie
+    betOnRulet()
 
 def main():
-    user1 = Player(2, "olo123", "Ola", "Bak")
+    user1 = Player(6, "olo123", "Ola", "Bak")
     user1.db_con.write()
+#    gra()
 
 main()
 
